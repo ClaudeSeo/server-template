@@ -1,0 +1,16 @@
+{
+  "extends": [
+    "./node_modules/gts/",
+    "plugin:security/recommended"
+  ],
+  "plugins": ["security"],
+  "rules": {
+    "node/no-unpublished-import": 0,
+    "node/no-unpublished-require": 0
+  },
+  "env": {
+    "mocha": true,
+    "node": true
+  }
+}
+
