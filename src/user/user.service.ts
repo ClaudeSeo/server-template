@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
-import { CreateUserDto } from './dto/user-create.dto';
+import { Types, Model } from 'mongoose';
+import { CreateUserDto, CreateUserResponse, GetUserListResponse } from './dto';
 import { User, UserDocument, CreateUser } from './schema/user.schema';
 
 @Injectable()
@@ -10,7 +10,7 @@ export class UserService {
     @InjectModel(User.name) private readonly userModel: Model<UserDocument>
   ) {}
 
-  async create(dto: CreateUserDto): Promise<{ _id: string }> {
+  async create(dto: CreateUserDto): Promise<CreateUserResponse> {
     const user = await this.userModel.create<CreateUser>({
       ...dto,
     });
@@ -20,7 +20,34 @@ export class UserService {
     };
   }
 
-  async findAll(): Promise<User[]> {
-    return this.userModel.find().lean().exec();
+  async findAll(): Promise<GetUserListResponse> {
+    const items = await this.userModel
+      .find()
+      .select({
+        _id: 1,
+        name: 1,
+        email: 1,
+      })
+      .lean()
+      .exec();
+
+    return {
+      items: items.map(user => {
+        return {
+          _id: user._id.toString(),
+          name: user.name,
+          email: user.email,
+        };
+      }),
+    };
+  }
+
+  async find(_id: string | Types.ObjectId) {
+    return this.userModel
+      .findOne({
+        _id,
+      })
+      .lean()
+      .exec();
   }
 }

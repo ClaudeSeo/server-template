@@ -1,3 +1,4 @@
+import { ApiProperty } from '@nestjs/swagger';
 import {
   IsEmail,
   IsNotEmpty,
@@ -13,6 +14,7 @@ import { Type } from 'class-transformer';
 import { IsDateFormat } from '~/component/utils/validator';
 
 class Agreement {
+  @ApiProperty()
   @IsNotEmpty({
     message: '동의서 이름 (`name`) 이 누락되었습니다.',
   })
@@ -21,12 +23,18 @@ class Agreement {
 
 export class CreateUserDto {
   /** 이름 */
+  @ApiProperty({
+    description: '동의서 이름',
+  })
   @IsNotEmpty({
     message: '이름(`name`) 이 누락되었습니다.',
   })
   readonly name: string;
 
   /** 이메일 */
+  @ApiProperty({
+    description: '이메일',
+  })
   @IsEmail(
     {},
     {
@@ -39,12 +47,18 @@ export class CreateUserDto {
   readonly email: string;
 
   /** 비밀번호 */
+  @ApiProperty({
+    description: '비밀번호',
+  })
   @IsNotEmpty({
     message: '비밀번호(`password`) 이 누락되었습니다.',
   })
   readonly password: string;
 
   /** 생년월일 */
+  @ApiProperty({
+    description: '생년월일',
+  })
   @IsOptional()
   @IsString()
   @IsDateFormat({
@@ -53,6 +67,9 @@ export class CreateUserDto {
   birthDate?: string;
 
   /** 나이 */
+  @ApiProperty({
+    description: '나이',
+  })
   @ValidateIf(o => o.birthDate === null || o.birthDate === undefined)
   @IsNumber(
     {},
@@ -63,6 +80,10 @@ export class CreateUserDto {
   age?: number;
 
   /** 동의서 */
+  @ApiProperty({
+    type: [Agreement],
+    description: '동의서 목록',
+  })
   @IsArray({
     message: '동의서(`agreements`) 는 배열 형식이어야 합니다.',
   })

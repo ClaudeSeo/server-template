@@ -20,7 +20,9 @@
     "dev:watch": "nest start --watch",
     "lint": "gts lint",
     "lint:fix": "gts fix",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "gen:docs": "nest start --config nest-cli-doc.json",
+    "docs": "redoc-cli serve ./dist/spec.json"
   },
   "author": {
     "name": "Claude.Seo",
@@ -45,6 +47,7 @@
   "devDependencies": {
     "@nestjs/cli": "^7.6.0",
     "@nestjs/schematics": "^7.3.1",
+    "@nestjs/swagger": "^4.8.2",
     "@nestjs/testing": "^7.6.18",
     "@types/express": "^4.17.12",
     "@types/lodash": "^4.14.170",
@@ -52,6 +55,7 @@
     "eslint-plugin-security": "^1.4.0",
     "gts": "^3.1.0",
     "jest": "^27.0.6",
+    "redoc-cli": "^0.12.1",
     "ts-jest": "^27.0.3",
     "ts-loader": "^9.2.3",
     "ts-node": "^10.0.0",

@@ -8,9 +8,6 @@ import { CreateDocument } from '~/types';
 })
 export class User {
   @Prop()
-  _id: Types.ObjectId;
-
-  @Prop()
   name: string;
 
   @Prop()
@@ -27,9 +24,6 @@ export class User {
 }
 
 export type UserDocument = User & Document;
-export type CreateUser = CreateDocument<
-  User,
-  '_id' | 'createdAt' | 'updatedAt'
->;
+export type CreateUser = CreateDocument<User, 'createdAt' | 'updatedAt'>;
 
 export const UserSchema = SchemaFactory.createForClass(User);
