@@ -3,12 +3,15 @@ import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 
+require('pkginfo')(module);
+
 async function bootstrap() {
+  const { name, version, description } = module.exports;
   const app = await NestFactory.create(AppModule);
   const options = new DocumentBuilder()
-    .setTitle('server-template')
-    .setDescription('Server Template')
-    .setVersion('1.0.0')
+    .setTitle(name)
+    .setDescription(description)
+    .setVersion(version)
     .build();
 
   const document = SwaggerModule.createDocument(app, options);
