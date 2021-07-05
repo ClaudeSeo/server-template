@@ -94,3 +94,10 @@ export class CreateUserDto {
   @Type(() => Agreement)
   readonly agreements: Agreement[];
 }
+
+export class CreateUserResponse {
+  @ApiProperty({
+    description: '유저 ID',
+  })
+  _id: string;
+}

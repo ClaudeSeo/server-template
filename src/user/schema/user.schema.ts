@@ -25,5 +25,4 @@ export class User {
 
 export type UserDocument = User & Document;
 export type CreateUser = CreateDocument<User, 'createdAt' | 'updatedAt'>;
-
 export const UserSchema = SchemaFactory.createForClass(User);
