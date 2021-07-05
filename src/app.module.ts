@@ -1,11 +1,11 @@
 import { ValidationPipe, Module } from '@nestjs/common';
-import { APP_FILTER, APP_PIPE } from '@nestjs/core';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { APP_FILTER, APP_PIPE } from '@nestjs/core';
 import { MongooseModule } from '@nestjs/mongoose';
-import { HttpExceptionFilter } from '~/filter/http-exception.filter';
 import { exceptionFactory } from '~/component/error';
 import configuration from '~/config/environment';
 import { DATABASE_CONNECTION_NAME } from '~/config/environment.constant';
+import { HttpExceptionFilter } from '~/filter/http-exception.filter';
 import { UsersModule } from '~/user/user.module';
 
 @Module({

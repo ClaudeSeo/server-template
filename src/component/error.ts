@@ -1,5 +1,5 @@
-import * as _ from 'lodash';
 import { ValidationError, HttpException, HttpStatus } from '@nestjs/common';
+import * as _ from 'lodash';
 
 const formatMessage = (message: string, fieldName?: string): string => {
   if (!fieldName) {

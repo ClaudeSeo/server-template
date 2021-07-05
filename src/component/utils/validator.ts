@@ -1,5 +1,5 @@
-import { isMatch } from 'date-fns';
 import { registerDecorator, ValidationOptions } from 'class-validator';
+import { isMatch } from 'date-fns';
 
 export function IsDateFormat(validationOptions?: ValidationOptions) {
   return function (object: Object, propertyName: string) {

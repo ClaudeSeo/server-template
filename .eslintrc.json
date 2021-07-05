@@ -1,16 +1,33 @@
 {
   "extends": [
     "./node_modules/gts/",
+    "plugin:import/recommended",
+    "plugin:import/typescript",
     "plugin:security/recommended"
   ],
-  "plugins": ["security"],
+  "plugins": ["import", "security"],
   "rules": {
     "node/no-unpublished-import": 0,
-    "node/no-unpublished-require": 0
+    "node/no-unpublished-require": 0,
+    "import/no-unresolved": 0,
+    "import/order": [
+      "error",
+      {
+        "groups": [
+          "builtin",
+          "external",
+          ["unknown", "internal"],
+          ["parent", "sibling", "index"]
+        ],
+        "alphabetize": {
+          "order": "asc",
+          "caseInsensitive": true
+        }
+      }
+    ]
   },
   "env": {
     "mocha": true,
     "node": true
   }
 }
-
