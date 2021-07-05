@@ -1,26 +1,18 @@
 import { ValidationPipe, Module } from '@nestjs/common';
-import { ConfigModule, ConfigService } from '@nestjs/config';
+import { ConfigModule } from '@nestjs/config';
 import { APP_FILTER, APP_PIPE } from '@nestjs/core';
-import { MongooseModule } from '@nestjs/mongoose';
-import { exceptionFactory } from '~/component/error';
+import { exceptionFactory } from '~/common/error';
+import { HttpExceptionFilter } from '~/common/filter/http-exception.filter';
 import configuration from '~/config/environment';
-import { DATABASE_CONNECTION_NAME } from '~/config/environment.constant';
-import { HttpExceptionFilter } from '~/filter/http-exception.filter';
 import { UsersModule } from '~/user/user.module';
+import { DatabaseModule } from './database/database.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       load: [configuration],
     }),
-    MongooseModule.forRootAsync({
-      connectionName: DATABASE_CONNECTION_NAME.MAIN,
-      imports: [ConfigModule],
-      inject: [ConfigService],
-      useFactory: async (configService: ConfigService) => ({
-        ...configService.get('mainDatabase'),
-      }),
-    }),
+    DatabaseModule,
     UsersModule,
   ],
   controllers: [],

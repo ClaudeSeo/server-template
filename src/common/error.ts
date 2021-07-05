@@ -1,5 +1,5 @@
 import { ValidationError, HttpException, HttpStatus } from '@nestjs/common';
-import * as _ from 'lodash';
+import { last } from 'lodash';
 
 const formatMessage = (message: string, fieldName?: string): string => {
   if (!fieldName) {
@@ -99,7 +99,7 @@ const exceptionChildrenFactory = (
   const [error, ...otherErrors] = children;
 
   if (error.constraints) {
-    return new BadRequestError(_.last(Object.values(error.constraints))!);
+    return new BadRequestError(last(Object.values(error.constraints))!);
   }
 
   if (error.children) {
@@ -118,7 +118,7 @@ export const exceptionFactory = (errors: ValidationError[]): BaseError => {
   const [error, ...otherErrors] = errors;
 
   if (error.constraints) {
-    return new BadRequestError(_.last(Object.values(error.constraints))!);
+    return new BadRequestError(last(Object.values(error.constraints))!);
   }
 
   if (error.children) {

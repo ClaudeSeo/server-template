@@ -11,7 +11,7 @@ import {
   ValidateNested,
   ValidateIf,
 } from 'class-validator';
-import { IsDateFormat } from '~/component/utils/validator';
+import { IsDateFormat } from '~/common/class-validator';
 
 class Agreement {
   @ApiProperty()
