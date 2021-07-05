@@ -5,10 +5,11 @@ import { omit } from 'lodash';
 import { LoggerModule } from 'nestjs-pino';
 import { exceptionFactory } from '~/common/error';
 import { HttpExceptionFilter } from '~/common/filter/http-exception.filter';
+import { AuthModule } from './auth/auth.module';
 import configuration from './config/environment';
 import { ENV } from './config/environment.constant';
 import { DatabaseModule } from './database/database.module';
-import { UsersModule } from './user/user.module';
+import { UserModule } from './user/user.module';
 
 @Module({
   imports: [
@@ -33,7 +34,8 @@ import { UsersModule } from './user/user.module';
       }),
     }),
     DatabaseModule,
-    UsersModule,
+    UserModule,
+    AuthModule,
   ],
   controllers: [],
   providers: [

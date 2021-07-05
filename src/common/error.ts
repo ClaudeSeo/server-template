@@ -58,6 +58,12 @@ export class ForbiddenError extends BaseError {
   }
 }
 
+export class NotFoundError extends BaseError {
+  constructor(message: string, fieldName?: string) {
+    super(HttpStatus.NOT_FOUND, message, fieldName);
+  }
+}
+
 export class ConflictError extends BaseError {
   constructor(message: string, fieldName?: string) {
     super(HttpStatus.CONFLICT, message, fieldName);

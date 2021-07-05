@@ -12,11 +12,12 @@ import {
   ValidateIf,
 } from 'class-validator';
 import { IsDateFormat } from '~/common/class-validator';
+import { VALIDATION_MESSAGE } from '../user.message';
 
 class Agreement {
   @ApiProperty()
   @IsNotEmpty({
-    message: '동의서 이름 (`name`) 이 누락되었습니다.',
+    message: VALIDATION_MESSAGE.REQUIRED_AGREEMENT_NAME,
   })
   name: string;
 }
@@ -24,10 +25,10 @@ class Agreement {
 export class CreateUserDto {
   /** 이름 */
   @ApiProperty({
-    description: '동의서 이름',
+    description: '이름',
   })
   @IsNotEmpty({
-    message: '이름(`name`) 이 누락되었습니다.',
+    message: VALIDATION_MESSAGE.REQUIRED_USER_NAME,
   })
   readonly name: string;
 
@@ -38,11 +39,11 @@ export class CreateUserDto {
   @IsEmail(
     {},
     {
-      message: '이메일(`email`) 형식이 아닙니다.',
+      message: VALIDATION_MESSAGE.INVALID_EMAIL_FORMAT,
     }
   )
   @IsNotEmpty({
-    message: '이메일(`email`) 이 누락되었습니다.',
+    message: VALIDATION_MESSAGE.REQUIRED_EMAIL,
   })
   readonly email: string;
 
@@ -51,7 +52,7 @@ export class CreateUserDto {
     description: '비밀번호',
   })
   @IsNotEmpty({
-    message: '비밀번호(`password`) 이 누락되었습니다.',
+    message: VALIDATION_MESSAGE.REQUIRED_PASSWORD,
   })
   readonly password: string;
 
@@ -62,7 +63,7 @@ export class CreateUserDto {
   @IsOptional()
   @IsString()
   @IsDateFormat({
-    message: '생년월일(`birthDate)` 는 `yyyy-MM-dd` 형식이어야 합니다.',
+    message: VALIDATION_MESSAGE.INVALID_BIRTH_DATE_FORMAT,
   })
   birthDate?: string;
 
@@ -74,7 +75,7 @@ export class CreateUserDto {
   @IsNumber(
     {},
     {
-      message: '나이(`age`) 가 누락되었습니다.',
+      message: VALIDATION_MESSAGE.REQUIRED_AGE,
     }
   )
   age?: number;
@@ -85,10 +86,10 @@ export class CreateUserDto {
     description: '동의서 목록',
   })
   @IsArray({
-    message: '동의서(`agreements`) 는 배열 형식이어야 합니다.',
+    message: VALIDATION_MESSAGE.WRONG_TYPE_OF_AGREEMENTS,
   })
   @ArrayMinSize(1, {
-    message: '동의서(`agreements`) 는 1개 이상 값이 있어야 합니다.',
+    message: VALIDATION_MESSAGE.MIN_AGREEMENTS,
   })
   @ValidateNested({ each: true })
   @Type(() => Agreement)

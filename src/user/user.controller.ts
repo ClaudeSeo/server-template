@@ -1,10 +1,11 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
 import {
   ApiCreatedResponse,
   ApiOkResponse,
   ApiTags,
   ApiOperation,
 } from '@nestjs/swagger';
+import { JwtAuthGuard } from '~/auth/auth.guard';
 import { CreateUserDto, CreateUserResponse, GetUserListResponse } from './dto';
 import { UserService } from './user.service';
 
@@ -22,6 +23,7 @@ export class UserController {
 
   @ApiOperation({ operationId: '유저 목록 조회' })
   @ApiOkResponse({ description: '성공', type: GetUserListResponse })
+  @UseGuards(JwtAuthGuard)
   @Get()
   async list(): Promise<GetUserListResponse> {
     return this.userService.findAll();
