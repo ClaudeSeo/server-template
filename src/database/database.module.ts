@@ -1,11 +1,8 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
-import * as mongoose from 'mongoose';
 import databaseConfiguration from '~/config/database-environment';
 import { DATABASE_CONNECTION_NAME } from '~/config/environment.constant';
-
-mongoose.set('debug', true);
 
 @Module({
   imports: [
