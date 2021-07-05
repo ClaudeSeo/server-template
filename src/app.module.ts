@@ -1,16 +1,36 @@
 import { ValidationPipe, Module } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { APP_FILTER, APP_PIPE } from '@nestjs/core';
+import { omit } from 'lodash';
+import { LoggerModule } from 'nestjs-pino';
 import { exceptionFactory } from '~/common/error';
 import { HttpExceptionFilter } from '~/common/filter/http-exception.filter';
-import configuration from '~/config/environment';
-import { UsersModule } from '~/user/user.module';
+import configuration from './config/environment';
+import { ENV } from './config/environment.constant';
 import { DatabaseModule } from './database/database.module';
+import { UsersModule } from './user/user.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       load: [configuration],
+    }),
+    LoggerModule.forRootAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: (config: ConfigService) => ({
+        pinoHttp: {
+          prettyPrint: config.get('env') === ENV.DEVELOPMENT,
+          serializers: {
+            req(req) {
+              return {
+                ...req,
+                body: omit(req.raw.body, ['password']),
+              };
+            },
+          },
+        },
+      }),
     }),
     DatabaseModule,
     UsersModule,
