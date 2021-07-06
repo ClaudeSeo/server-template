@@ -1,6 +1,13 @@
-import { ValidationPipe, Module } from '@nestjs/common';
+import {
+  ValidationPipe,
+  NestModule,
+  Module,
+  MiddlewareConsumer,
+} from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { APP_FILTER, APP_PIPE } from '@nestjs/core';
+import * as compression from 'compression';
+import * as helmet from 'helmet';
 import { omit } from 'lodash';
 import { LoggerModule } from 'nestjs-pino';
 import { exceptionFactory } from '~/common/error';
@@ -15,6 +22,7 @@ import { UserModule } from './user/user.module';
   imports: [
     ConfigModule.forRoot({
       load: [configuration],
+      isGlobal: true,
     }),
     LoggerModule.forRootAsync({
       imports: [ConfigModule],
@@ -54,4 +62,8 @@ import { UserModule } from './user/user.module';
     },
   ],
 })
-export class AppModule {}
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(helmet(), compression()).forRoutes('*');
+  }
+}
