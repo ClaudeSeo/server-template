@@ -1,15 +1,15 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
 import {
+  ArrayMinSize,
+  IsArray,
   IsEmail,
   IsNotEmpty,
-  IsArray,
+  IsNumber,
   IsOptional,
   IsString,
-  IsNumber,
-  ArrayMinSize,
-  ValidateNested,
   ValidateIf,
+  ValidateNested,
 } from 'class-validator';
 import { IsDateFormat } from '~/common/class-validator';
 import { VALIDATION_MESSAGE } from '../user.message';

@@ -2,10 +2,10 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import * as bcrypt from 'bcrypt';
 import { Model } from 'mongoose';
-import { PinoLogger, InjectPinoLogger } from 'nestjs-pino';
+import { InjectPinoLogger, PinoLogger } from 'nestjs-pino';
 import { NotFoundError, UniqueError } from '~/common/error';
 import { CreateUserDto, CreateUserResponse, GetUserListResponse } from '../dto';
-import { User, UserDocument, CreateUserQuery } from '../schema/user.schema';
+import { CreateUserQuery, User, UserDocument } from '../schema/user.schema';
 import { PASSWORD_SALT_ROUNDS } from '../user.constant';
 import { DUPLICATED_USER, NOT_FOUND_USER } from '../user.message';
 

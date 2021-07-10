@@ -1,8 +1,8 @@
 import {
-  ValidationPipe,
-  NestModule,
-  Module,
   MiddlewareConsumer,
+  Module,
+  NestModule,
+  ValidationPipe,
 } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { APP_FILTER, APP_PIPE } from '@nestjs/core';

@@ -24,7 +24,8 @@
           "caseInsensitive": true
         }
       }
-    ]
+    ],
+    "sort-imports": ["error", { "ignoreDeclarationSort": true }]
   },
   "env": {
     "mocha": true,

@@ -1,6 +1,6 @@
 import { Controller, Get } from '@nestjs/common';
 import { InjectConnection } from '@nestjs/mongoose';
-import { ApiTags, ApiOperation } from '@nestjs/swagger';
+import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import {
   HealthCheck,
   HealthCheckService,

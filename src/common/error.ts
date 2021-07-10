@@ -1,4 +1,4 @@
-import { ValidationError, HttpException, HttpStatus } from '@nestjs/common';
+import { HttpException, HttpStatus, ValidationError } from '@nestjs/common';
 import { last } from 'lodash';
 
 const formatMessage = (message: string, fieldName?: string): string => {
