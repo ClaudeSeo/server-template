@@ -6,6 +6,7 @@ import {
 } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { APP_FILTER, APP_PIPE } from '@nestjs/core';
+import { TerminusModule } from '@nestjs/terminus';
 import * as compression from 'compression';
 import * as helmet from 'helmet';
 import { omit } from 'lodash';
@@ -16,6 +17,7 @@ import { AuthModule } from './auth/auth.module';
 import configuration from './config/environment';
 import { ENV } from './config/environment.constant';
 import { DatabaseModule } from './database/database.module';
+import { HealthController } from './health/health.controller';
 import { UserModule } from './user/user.module';
 
 @Module({
@@ -42,10 +44,11 @@ import { UserModule } from './user/user.module';
       }),
     }),
     DatabaseModule,
+    TerminusModule,
     UserModule,
     AuthModule,
   ],
-  controllers: [],
+  controllers: [HealthController],
   providers: [
     {
       provide: APP_FILTER,
