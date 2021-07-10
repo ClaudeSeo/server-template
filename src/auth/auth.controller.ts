@@ -11,7 +11,7 @@ import { LocalLoginRequest, LoginResponse } from './dto';
 export class AuthController {
   constructor(private authService: AuthService) {}
 
-  @ApiOperation({ operationId: '이메일 인증' })
+  @ApiOperation({ operationId: '이메일 로그인' })
   @ApiOkResponse({ description: '성공', type: LoginResponse })
   @ApiBody({ type: LocalLoginRequest })
   @UseGuards(LocalAuthGuard)
