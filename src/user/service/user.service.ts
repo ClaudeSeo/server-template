@@ -4,10 +4,10 @@ import * as bcrypt from 'bcrypt';
 import { Model } from 'mongoose';
 import { PinoLogger, InjectPinoLogger } from 'nestjs-pino';
 import { NotFoundError, UniqueError } from '~/common/error';
-import { CreateUserDto, CreateUserResponse, GetUserListResponse } from './dto';
-import { User, UserDocument, CreateUser } from './schema/user.schema';
-import { PASSWORD_SALT_ROUNDS } from './user.constant';
-import { DUPLICATED_USER, NOT_FOUND_USER } from './user.message';
+import { CreateUserDto, CreateUserResponse, GetUserListResponse } from '../dto';
+import { User, UserDocument, CreateUserQuery } from '../schema/user.schema';
+import { PASSWORD_SALT_ROUNDS } from '../user.constant';
+import { DUPLICATED_USER, NOT_FOUND_USER } from '../user.message';
 
 @Injectable()
 export class UserService {
@@ -23,7 +23,7 @@ export class UserService {
   async create(dto: CreateUserDto): Promise<CreateUserResponse> {
     await this.existsUser(dto.email);
     const encPassword = await this.encryptPassword(dto.password);
-    const user = await this.userModel.create<CreateUser>({
+    const user = await this.userModel.create<CreateUserQuery>({
       name: dto.name,
       email: dto.email,
       password: encPassword,
